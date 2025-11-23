@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AquaLogic — Water Sort Puzzle (Hard Mode)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- HOME SCREEN -->
+  <section id="home" class="screen active">
+    <div class="center-card">
+      <div class="top-bar">
+        <div class="coin-display">💰 <span id="coinCount">0</span></div>
+      </div>
+      <h1 class="game-title">AquaLogic</h1>
+      <p class="tag">Hard Mode</p>
+      <div class="home-controls">
+        <button id="btnPlay" class="btn primary">▶ Play</button>
+        <button id="btnLevels" class="btn">Levels</button>
+      </div>
+      <div class="home-footer">
+        <button id="soundToggle" class="icon-btn">🔊</button>
+        <div class="small">Unlocked: <span id="bestUnlocked">1</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEVEL SELECT -->
+  <section id="levels" class="screen">
+    <div class="levels-panel center-card">
+      <header class="panel-head">
+        <button id="backFromLevels" class="btn subtle">← Back</button>
+        <h2>Choose Level</h2>
+        <div></div>
+      </header>
+      <div id="levelsGrid" class="levels-grid"></div>
+    </div>
+  </section>
+
+  <!-- GAME SCREEN -->
+  <section id="game" class="screen">
+    <div class="game-wrap">
+      <div class="hud">
+        <div class="left">
+          <button id="btnHome" class="btn subtle">🏠 Home</button>
+          <div class="level-name">Level <span id="levelLabel">1</span></div>
+        </div>
+        <div class="center">
+          <div class="meta">Moves left: <span id="movesLeft">--</span></div>
+        </div>
+        <div class="right">
+          <div class="meta">💰 <span id="coinsInGame">0</span></div>
+        </div>
+      </div>
+
+      <!-- POWER PANEL (below HUD, only on game screen) -->
+      <div id="powerPanel" class="power-panel">
+        <div class="power-item" id="undoPower">
+          <div class="power-icon">↶</div>
+          <div class="power-cost">💰 <span id="undoCost">20</span></div>
+        </div>
+        <div class="power-item" id="shufflePower">
+          <div class="power-icon">🔀</div>
+          <div class="power-cost">💰 <span id="shuffleCost">40</span></div>
+        </div>
+        <div class="power-item" id="skipPower">
+          <div class="power-icon">⏭️</div>
+          <div class="power-cost">💰 <span id="skipCost">100</span></div>
+        </div>
+      </div>
+
+      <div id="playArea" class="play-area"></div>
+    </div>
+  </section>
+
+  <!-- WIN POPUP -->
+  <div id="winPopup" class="overlay hidden">
+    <div class="popup-card">
+      <h2>🎉 Congratulations!</h2>
+      <p class="popup-text">You earned <strong id="popupReward">+0</strong> coins</p>
+      <div class="popup-actions">
+        <button id="nextLevelBtn" class="btn primary">Next Level ▶</button>
+        <button id="closePopupBtn" class="btn subtle">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Level Complete!</div>
+
+  <script src="script.js"></script>
+
+  <!-- GameMonetize SDK (gameId inserted) -->
+  <script type="text/javascript">
+   window.SDK_OPTIONS = {
+      gameId: "myfre67i1rsz9gav2l0in0rfqct6mrjy",
+      onEvent: function (a) {
+         switch (a.name) {
+            case "SDK_GAME_PAUSE":
+               try{ state.running = false; }catch(e){}
+               break;
+            case "SDK_GAME_START":
+               try{ state.running = true; }catch(e){}
+               break;
+            case "SDK_READY":
+               console.log("SDK_READY");
+               break;
+            case "SDK_ERROR":
+               console.log("SDK_ERROR", a);
+               break;
+         }
+      }
+   };
+   (function (d, s, id) {
+      var ref = d.getElementsByTagName(s)[0];
+      if (!d.getElementById(id)) {
+         var js = d.createElement(s); js.id = id;
+         js.src = "https://api.gamemonetize.com/sdk.js";
+         ref.parentNode.insertBefore(js, ref);
+      }
+   })(document, "script", "gamemonetize-sdk");
+  </script>
+</body>
+</html>
